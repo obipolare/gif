@@ -1,5 +1,5 @@
 <template>
-  <figure>
+  <figure class="mx-auto">
     <img :src="gif.url" :alt="gif.title" :key="gif.id"/>
   </figure>
 </template>

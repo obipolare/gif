@@ -1,5 +1,5 @@
 <template>
-  <h2 class="text-2xl w-11/12 mx-auto capitalize">{{ gifName }}</h2>
+  <h2 class="w-11/12 py-4 mx-auto text-2xl capitalize">{{ gifName }}</h2>
   <section class="grid grid-cols-1 gap-2 m-2 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:mx-24 sm:my-8 ">
     <template v-for="gif in gifs" :key="gif.title">
         <GifShow :gif="gif" />
@@ -36,11 +36,11 @@ export default {
           id: gif.id,
         };
       });
-      console.log(gifs);
+      // console.log(gifs);
       return gifs;
     }
-    console.log(gifName);
-        getGifs(gifName).then(data => gifs.value = data)
+    
+    getGifs(gifName).then(data => gifs.value = data)
 
     return { 
         gifs,
