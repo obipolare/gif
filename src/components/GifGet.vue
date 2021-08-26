@@ -7,17 +7,14 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { ref } from "@vue/reactivity";
 import GifShow from "./GifShow.vue";
-export default {
-  props: {
-    gifName: String,
-  },
-  components: {
-    GifShow,
-  },
-  setup({ gifName }) {
+
+    const { gifName } = defineProps({
+      gifName: String
+    })
+
     const KEY_API = "INBYS428FGU4";
 
     const gifs = ref([]);
@@ -41,14 +38,7 @@ export default {
     }
     
     getGifs(gifName).then(data => gifs.value = data)
-
-    return { 
-        gifs,
-        getGifs
-    }
-
-  },
-};
+    
 </script>
 
 <style></style>

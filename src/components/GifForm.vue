@@ -6,27 +6,21 @@
    </form>
 </template>
 
-<script>
-import { ref } from '@vue/reactivity';
-export default {
-    props: {
-        categories: Array,
-    },
-    setup({categories}){
-        const category = ref('')
-        const handleForm = () => {
-            // categories.value = [...categories.value, category.value]
-            categories.unshift(category.value)
-            console.log(categories);
-            category.value = ''
-        }
-
-        return {
-            category,
-            handleForm
-        }
+<script setup>
+import { ref } from 'vue';
+    // Props
+    const { categories } = defineProps({
+        categories: Array
+    })
+    //initial state
+    const category = ref('')
+    // Submit of the data
+    const handleForm = () => {
+        // categories.value = [...categories.value, category.value]
+        categories.unshift(category.value)
+        console.log(categories);
+        category.value = ''
     }
-}
 </script>
 
 <style>

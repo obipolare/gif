@@ -48,7 +48,6 @@
             stroke-linejoin="round"
             stroke-width="2"
             d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-           
           ></path>
         </template>
       </svg>
@@ -62,85 +61,66 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import { onMounted, ref } from "vue";
 import GifForm from "./components/GifForm.vue";
 import GifGet from "./components/GifGet.vue";
 
-export default {
-  components: {
-    GifForm,
-    GifGet,
-  },
-  setup() {
+// local storage functions
+const setLocalState = (state) => {
+  return localStorage.setItem("state", JSON.stringify(state));
+};
+const setLocalTheme = (theme) => {
+  return localStorage.setItem("theme", theme);
+};
 
-    // local storage functions
-    const setLocalState = (state) => {
-       return localStorage.setItem( "state", JSON.stringify( state ) )
-    }
-    const setLocalTheme = (theme) => {
-       return localStorage.setItem( 'theme', theme )
-    }
+// Classes functions
+const removeHTMLClass = (className) => {
+  return document.documentElement.classList.remove(className);
+};
 
-    // Classes functions
-    const removeHTMLClass = (className) => {
-       return document.documentElement.classList.remove( className );
-    }
+// Toggle function
+const toggleHTMLClass = (className) => {
+  return document.documentElement.classList.toggle(className);
+};
+// array of categories
+const categories = ref(["Scooby Doo"]);
 
-    // Toggle function
-    const toggleHTMLClass = (className) => {
-      return document.documentElement.classList.toggle(className);
-    }
-    // array of categories
-     const categories = ref(["Schooby Doo"]);
+// initial state
+onMounted(() => {
+  console.log(JSON.parse(localStorage.getItem("state")));
+  if (JSON.parse(localStorage.getItem("state"))) {
+    removeHTMLClass("dark");
+    toggleHTMLClass("light");
+    setLocalTheme("light");
+    setLocalState(true);
+    return;
+  }
+  setLocalTheme("dark");
+  setLocalState(false);
+});
 
-      // initial state
-     onMounted(() => {
-      console.log(JSON.parse(localStorage.getItem('state')));
-      if (JSON.parse(localStorage.getItem('state'))){
-        removeHTMLClass("dark")
-        toggleHTMLClass('light')
-        setLocalTheme("light")
-        setLocalState(true)
-        return
-      }
-        setLocalTheme("dark")
-        setLocalState(false)
+const initialState = JSON.parse(localStorage.getItem("state"));
+const toggleButton = ref(initialState);
 
-     })
+const handleToggle = () => {
+  toggleButton.value = !toggleButton.value;
+  console.log(toggleButton.value);
+  if (toggleButton.value) {
+    removeHTMLClass("dark");
 
-    const initialState = JSON.parse(localStorage.getItem('state'))
-    const toggleButton = ref(initialState)
+    setLocalState(true);
+    setLocalTheme("light");
 
-    const handleToggle = () => {
-      toggleButton.value = !toggleButton.value;
-      console.log(toggleButton.value);
-     if (toggleButton.value) {
+    toggleHTMLClass("light");
+  } else {
+    removeHTMLClass("light");
 
-        removeHTMLClass('dark')
+    setLocalState(false);
+    setLocalTheme("dark");
 
-        setLocalState(true)
-        setLocalTheme('light')
-
-        toggleHTMLClass('light')
-       
-      } else {
-        removeHTMLClass('light')
-
-        setLocalState(false)
-        setLocalTheme('dark') 
-
-        toggleHTMLClass('dark')
-      }
-      
-    };
-
-    return {
-      categories,
-      toggleButton,
-      handleToggle,
-    };
-  },
+    toggleHTMLClass("dark");
+  }
 };
 </script>
 

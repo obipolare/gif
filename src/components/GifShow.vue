@@ -4,17 +4,11 @@
   </figure>
 </template>
 
-<script>
-export default {
-  props: {
-    gif: Object,
-  },
-  setup(gif) {
+<script setup>
+    const { gif } = defineProps({
+        gif: Object,
+    })
     // console.log(gif);
-
-    return {};
-  },
-};
 </script>
 
 <style>
